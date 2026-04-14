@@ -1,0 +1,15 @@
+C:\chaya_lernning\FinalProject\server\Final_Project\Final_Project.Dal\bin\Debug\net8.0\Final_Project.Dal.deps.json
+C:\chaya_lernning\FinalProject\server\Final_Project\Final_Project.Dal\bin\Debug\net8.0\Final_Project.Dal.runtimeconfig.json
+C:\chaya_lernning\FinalProject\server\Final_Project\Final_Project.Dal\bin\Debug\net8.0\Final_Project.Dal.dll
+C:\chaya_lernning\FinalProject\server\Final_Project\Final_Project.Dal\bin\Debug\net8.0\Final_Project.Dal.pdb
+C:\chaya_lernning\FinalProject\server\Final_Project\Final_Project.Dal\obj\Debug\net8.0\Final_Project.Dal.csproj.AssemblyReference.cache
+C:\chaya_lernning\FinalProject\server\Final_Project\Final_Project.Dal\obj\Debug\net8.0\Final_Project.Dal.GeneratedMSBuildEditorConfig.editorconfig
+C:\chaya_lernning\FinalProject\server\Final_Project\Final_Project.Dal\obj\Debug\net8.0\Final_Project.Dal.AssemblyInfoInputs.cache
+C:\chaya_lernning\FinalProject\server\Final_Project\Final_Project.Dal\obj\Debug\net8.0\Final_Project.Dal.AssemblyInfo.cs
+C:\chaya_lernning\FinalProject\server\Final_Project\Final_Project.Dal\obj\Debug\net8.0\Final_Project.Dal.csproj.CoreCompileInputs.cache
+C:\chaya_lernning\FinalProject\server\Final_Project\Final_Project.Dal\obj\Debug\net8.0\Final_Project.Dal.sourcelink.json
+C:\chaya_lernning\FinalProject\server\Final_Project\Final_Project.Dal\obj\Debug\net8.0\Final_Project.Dal.dll
+C:\chaya_lernning\FinalProject\server\Final_Project\Final_Project.Dal\obj\Debug\net8.0\refint\Final_Project.Dal.dll
+C:\chaya_lernning\FinalProject\server\Final_Project\Final_Project.Dal\obj\Debug\net8.0\Final_Project.Dal.pdb
+C:\chaya_lernning\FinalProject\server\Final_Project\Final_Project.Dal\obj\Debug\net8.0\Final_Project.Dal.genruntimeconfig.cache
+C:\chaya_lernning\FinalProject\server\Final_Project\Final_Project.Dal\obj\Debug\net8.0\ref\Final_Project.Dal.dll
