@@ -3,13 +3,6 @@
   "WorkspaceRootPath": "C:\\chaya_lernning\\FinalProject\\server\\Final_Project\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{DC93C544-C7E9-46FA-9384-36E25A01D957}|Final_Project\\Final_Project.csproj|c:\\chaya_lernning\\finalproject\\server\\final_project\\final_project\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DC93C544-C7E9-46FA-9384-36E25A01D957}|Final_Project\\Final_Project.csproj|solutionrelative:final_project\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/_LocalDB__MSSQLLocalDB/C__USERS_ADMIN1_DOCUMENTS_DBPROJECT.MDF/True/SqlTable/dbo.Appointments.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/_LocalDB__MSSQLLocalDB/C__USERS_ADMIN1_DOCUMENTS_DBPROJECT.MDF/True/SqlTable/dbo.Users.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
     }
   ],
@@ -45,34 +38,11 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\chaya_lernning\\FinalProject\\server\\Final_Project\\Final_Project\\Program.cs",
-              "RelativeDocumentMoniker": "Final_Project\\Program.cs",
-              "ToolTip": "C:\\chaya_lernning\\FinalProject\\server\\Final_Project\\Final_Project\\Program.cs",
-              "RelativeToolTip": "Final_Project\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-14T16:42:57.564Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "dbo.Appointments [Data]",
-              "DocumentMoniker": "ViewDataWindow_MSSQL__/_LocalDB__MSSQLLocalDB/C__USERS_ADMIN1_DOCUMENTS_DBPROJECT.MDF/True/SqlTable/dbo.Appointments.sql",
-              "ToolTip": "dbo.Appointments [Data]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2026-04-14T13:56:21.576Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
               "Title": "dbo.Users [Data]",
               "DocumentMoniker": "ViewDataWindow_MSSQL__/_LocalDB__MSSQLLocalDB/C__USERS_ADMIN1_DOCUMENTS_DBPROJECT.MDF/True/SqlTable/dbo.Users.sql",
               "ToolTip": "dbo.Users [Data]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2026-04-14T13:49:57.375Z",
+              "WhenOpened": "2026-04-15T20:04:31.606Z",
               "EditorCaption": ""
             }
           ]

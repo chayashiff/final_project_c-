@@ -3,16 +3,11 @@
   "WorkspaceRootPath": "C:\\chaya_lernning\\FinalProject\\server\\Final_Project\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B6A676A4-A947-4485-A1FC-B710401A12BC}|Final_Project.Dal\\Final_Project.Dal.csproj|c:\\chaya_lernning\\finalproject\\server\\final_project\\final_project.dal\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B6A676A4-A947-4485-A1FC-B710401A12BC}|Final_Project.Dal\\Final_Project.Dal.csproj|solutionrelative:final_project.dal\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DC93C544-C7E9-46FA-9384-36E25A01D957}|Final_Project\\Final_Project.csproj|c:\\chaya_lernning\\finalproject\\server\\final_project\\final_project\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DC93C544-C7E9-46FA-9384-36E25A01D957}|Final_Project\\Final_Project.csproj|solutionrelative:final_project\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{CDD36762-3DD3-4279-B836-99686CD9A8CE}|Final_Project.BL\\Final_Project.BL.csproj|c:\\chaya_lernning\\finalproject\\server\\final_project\\final_project.bl\\services\\userservicebl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CDD36762-3DD3-4279-B836-99686CD9A8CE}|Final_Project.BL\\Final_Project.BL.csproj|solutionrelative:final_project.bl\\services\\userservicebl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CDD36762-3DD3-4279-B836-99686CD9A8CE}|Final_Project.BL\\Final_Project.BL.csproj|c:\\chaya_lernning\\finalproject\\server\\final_project\\final_project.bl\\models\\historyappointments.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CDD36762-3DD3-4279-B836-99686CD9A8CE}|Final_Project.BL\\Final_Project.BL.csproj|solutionrelative:final_project.bl\\models\\historyappointments.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/_LocalDB__MSSQLLocalDB/C__USERS_ADMIN1_DOCUMENTS_DBPROJECT.MDF/True/SqlTable/dbo.Appointments.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/_LocalDB__MSSQLLocalDB/C__USERS_ADMIN1_DOCUMENTS_DBPROJECT.MDF/True/SqlTable/dbo.Users.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
@@ -25,47 +20,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 5,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "UserService.cs",
-              "DocumentMoniker": "C:\\chaya_lernning\\FinalProject\\server\\Final_Project\\Final_Project.Dal\\Services\\UserService.cs",
-              "RelativeDocumentMoniker": "Final_Project.Dal\\Services\\UserService.cs",
-              "ToolTip": "C:\\chaya_lernning\\FinalProject\\server\\Final_Project\\Final_Project.Dal\\Services\\UserService.cs",
-              "RelativeToolTip": "Final_Project.Dal\\Services\\UserService.cs",
-              "ViewState": "AgIAAB0AAAAAAAAAAAAuwD4AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-14T00:15:21.64Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "UserServiceBL.cs",
-              "DocumentMoniker": "C:\\chaya_lernning\\FinalProject\\server\\Final_Project\\Final_Project.BL\\Services\\UserServiceBL.cs",
-              "RelativeDocumentMoniker": "Final_Project.BL\\Services\\UserServiceBL.cs",
-              "ToolTip": "C:\\chaya_lernning\\FinalProject\\server\\Final_Project\\Final_Project.BL\\Services\\UserServiceBL.cs",
-              "RelativeToolTip": "Final_Project.BL\\Services\\UserServiceBL.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAAQwC0AAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-14T00:14:40.891Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "HistoryAppointments.cs",
-              "DocumentMoniker": "C:\\chaya_lernning\\FinalProject\\server\\Final_Project\\Final_Project.BL\\Models\\HistoryAppointments.cs",
-              "RelativeDocumentMoniker": "Final_Project.BL\\Models\\HistoryAppointments.cs",
-              "ToolTip": "C:\\chaya_lernning\\FinalProject\\server\\Final_Project\\Final_Project.BL\\Models\\HistoryAppointments.cs",
-              "RelativeToolTip": "Final_Project.BL\\Models\\HistoryAppointments.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-14T00:14:16.229Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
@@ -88,13 +44,34 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "dbo.Users [Data]",
-              "DocumentMoniker": "ViewDataWindow_MSSQL__/_LocalDB__MSSQLLocalDB/C__USERS_ADMIN1_DOCUMENTS_DBPROJECT.MDF/True/SqlTable/dbo.Users.sql",
-              "ToolTip": "dbo.Users [Data]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2026-04-13T22:10:23.671Z",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\chaya_lernning\\FinalProject\\server\\Final_Project\\Final_Project\\Program.cs",
+              "RelativeDocumentMoniker": "Final_Project\\Program.cs",
+              "ToolTip": "C:\\chaya_lernning\\FinalProject\\server\\Final_Project\\Final_Project\\Program.cs",
+              "RelativeToolTip": "Final_Project\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-14T16:42:57.564Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "dbo.Appointments.sql",
+              "DocumentMoniker": "ViewDataWindow_MSSQL__/_LocalDB__MSSQLLocalDB/C__USERS_ADMIN1_DOCUMENTS_DBPROJECT.MDF/True/SqlTable/dbo.Appointments.sql",
+              "ToolTip": "ViewDataWindow_MSSQL__/_LocalDB__MSSQLLocalDB/C__USERS_ADMIN1_DOCUMENTS_DBPROJECT.MDF/True/SqlTable/dbo.Appointments.sql",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
+              "WhenOpened": "2026-04-14T13:56:21.576Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "dbo.Users.sql",
+              "DocumentMoniker": "ViewDataWindow_MSSQL__/_LocalDB__MSSQLLocalDB/C__USERS_ADMIN1_DOCUMENTS_DBPROJECT.MDF/True/SqlTable/dbo.Users.sql",
+              "ToolTip": "ViewDataWindow_MSSQL__/_LocalDB__MSSQLLocalDB/C__USERS_ADMIN1_DOCUMENTS_DBPROJECT.MDF/True/SqlTable/dbo.Users.sql",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
+              "WhenOpened": "2026-04-14T13:49:57.375Z"
             }
           ]
         }
