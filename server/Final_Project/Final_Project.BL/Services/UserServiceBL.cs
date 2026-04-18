@@ -1,8 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using Final_Project.BL.Api;
+﻿using Final_Project.BL.Api;
 using Final_Project.BL.Models;
+using Final_Project.Dal.models;
 using Final_Project.Dal.Servises;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
 
 namespace Final_Project.BL.Services
 {
@@ -14,6 +16,29 @@ namespace Final_Project.BL.Services
         {
             var rawData = _userServiceDal.appointmentsHistory(userId);
             return ((IHistoryUser)this).appointmentsHistoryBL(rawData);
+        }
+
+        public List<HistoryAppointments> GetAllAppointments()
+        {
+            var rawData = _userServiceDal.appointmentsHistory(0);
+            // נחזיר הכל — ללא סינון לפי userId
+            using (var context = new Final_Project.Dal.models.dbmanager())
+            {
+                var appointments = context.Appointments
+                    .Include(a => a.Service)
+                    .Include(a => a.User)
+                    .OrderByDescending(a => a.AppointmentDate)
+                    .ToList();
+                return ((IHistoryUser)this).appointmentsHistoryBL(appointments);
+            }
+        }
+
+        public List<User> GetAllUsers()
+        {
+            using (var context = new Final_Project.Dal.models.dbmanager())
+            {
+                return context.Users.ToList();
+            }
         }
 
         List<HistoryAppointments> IHistoryUser.appointmentsHistoryBL(

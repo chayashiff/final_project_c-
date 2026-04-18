@@ -15,5 +15,7 @@ namespace Final_Project.BL.Api
         List<HistoryAppointments> appointmentsHistoryBL(List<Appointment> appointments);
         bool DeleteAppointment(int userId, DateTime appointmentDate);
         bool UpdateAppointment(int userId, DateTime oldAppointmentDate,DateTime newAppointmentDate, int? newServiceId);
+        List<HistoryAppointments> GetAllAppointments();
+        List<User> GetAllUsers();
     }
 }

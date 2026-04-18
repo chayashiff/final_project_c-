@@ -57,6 +57,26 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Final_Project.Controllers.AdminController",
+    "Method": "GetAllAppointments",
+    "RelativePath": "api/Admin/appointments",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Final_Project.Controllers.AdminController",
+    "Method": "GetAllUsers",
+    "RelativePath": "api/Admin/users",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Final_Project.Controllers.AppointmentController",
     "Method": "DeleteAppointment",
     "RelativePath": "api/Appointment/delete",
