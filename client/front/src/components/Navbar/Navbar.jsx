@@ -8,9 +8,9 @@ const Navbar = () => {
         <img src={logo} alt="logo" style={styles.logo} />
       </Link>
       <div style={styles.links}>
-        <Link to="/gallery" style={styles.link}>גלריה</Link>
+        <Link to="/about" style={styles.link}>קצת עלינו</Link>
+        <Link to="/contact" style={styles.link}>יצירת קשר</Link>
         <Link to="/login" style={styles.btnLogin}>התחברות</Link>
-        
       </div>
     </nav>
   );
@@ -30,7 +30,8 @@ const styles = {
     direction: "rtl",
   },
   logo: {
-    width: "60px", height: "60px",
+    width: "60px",
+    height: "60px",
     borderRadius: "50%",
     objectFit: "cover",
     boxShadow: "0 2px 8px rgba(212, 147, 154, 0.4)",
