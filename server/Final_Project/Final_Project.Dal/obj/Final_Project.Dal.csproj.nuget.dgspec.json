@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\User\\Desktop\\Chani_Studies\\final_project_c-\\server\\Final_Project\\Final_Project.Dal\\Final_Project.Dal.csproj": {}
+    "C:\\final_project_c-\\server\\Final_Project\\Final_Project.Dal\\Final_Project.Dal.csproj": {}
   },
   "projects": {
-    "C:\\Users\\User\\Desktop\\Chani_Studies\\final_project_c-\\server\\Final_Project\\Final_Project.Dal\\Final_Project.Dal.csproj": {
+    "C:\\final_project_c-\\server\\Final_Project\\Final_Project.Dal\\Final_Project.Dal.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\Desktop\\Chani_Studies\\final_project_c-\\server\\Final_Project\\Final_Project.Dal\\Final_Project.Dal.csproj",
+        "projectUniqueName": "C:\\final_project_c-\\server\\Final_Project\\Final_Project.Dal\\Final_Project.Dal.csproj",
         "projectName": "Final_Project.Dal",
-        "projectPath": "C:\\Users\\User\\Desktop\\Chani_Studies\\final_project_c-\\server\\Final_Project\\Final_Project.Dal\\Final_Project.Dal.csproj",
-        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\Desktop\\Chani_Studies\\final_project_c-\\server\\Final_Project\\Final_Project.Dal\\obj\\",
+        "projectPath": "C:\\final_project_c-\\server\\Final_Project\\Final_Project.Dal\\Final_Project.Dal.csproj",
+        "packagesPath": "C:\\Users\\rbl05\\.nuget\\packages\\",
+        "outputPath": "C:\\final_project_c-\\server\\Final_Project\\Final_Project.Dal\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\rbl05\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -87,7 +87,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.310/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.311/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

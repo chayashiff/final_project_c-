@@ -130,6 +130,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Final_Project.Controllers.BotController",
+    "Method": "Ask",
+    "RelativePath": "api/Bot/ask",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Final_Project.Controllers.BotRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Final_Project.Controllers.LoginController",
     "Method": "Login",
     "RelativePath": "api/Login",

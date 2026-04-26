@@ -21,7 +21,7 @@ public partial class dbmanager : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     => optionsBuilder.UseSqlServer(
         "Data Source=(LocalDB)\\MSSQLLocalDB;" +
-        "AttachDbFilename=C:\\Users\\User\\Desktop\\Chani_Studies\\DBprojeft.mdf;" +
+        "AttachDbFilename=C:\\RCC\\Final_project.mdf;" +
         "Integrated Security=True;" +
         "Connect Timeout=30;");
     protected override void OnModelCreating(ModelBuilder modelBuilder)
