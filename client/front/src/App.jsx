@@ -7,6 +7,8 @@ import UserHome from "./pages/Home/UserHome";
 import History from "./pages/History/History";
 import Appointments from "./pages/Appointments/Appointments";
 import Bot from "./pages/Bot/Bot";
+import Admin from "./pages/Admin/Admin";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 const FloatingBot = () => {
   const navigate = useNavigate();
@@ -40,6 +42,11 @@ function App() {
       <BrowserRouter>
         <FloatingBot />
         <Routes>
+          <Route path="/admin" element={
+  <ProtectedRoute requiredRole="Admin">
+    <Admin />
+  </ProtectedRoute>
+} />
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/home" element={<UserHome />} />
