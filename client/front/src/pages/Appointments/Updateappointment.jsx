@@ -4,9 +4,9 @@ import { jwtDecode } from "jwt-decode";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import NavbarUser from "../../components/Navbar/NavbarUser";
-import { getServices, bookAppointment } from "../../api/appointmentsApi";
+import { getServices, bookAppointment, updateAppointment } from "../../api/appointmentsApi";
 
-const Appointments = () => {
+const Updateappointment = () => {
   const [services, setServices] = useState([]);
   const [selectedService, setSelectedService] = useState("");
   const [selectedDate, setSelectedDate] = useState(null);
@@ -51,14 +51,14 @@ const Appointments = () => {
       console.log("serviceId:", selectedService);
       console.log("date:", selectedDate.toISOString());
 
-      await bookAppointment(
+      await Updateappointment(
         parseInt(decoded.userId),
         parseInt(selectedService),
         selectedDate.toISOString()
       );
 
       setIsError(false);
-      setMessage("התור נקבע בהצלחה! 🎉");
+      setMessage("התור עודכן בהצלחה! 🎉");
       setSelectedService("");
       setSelectedDate(null);
     } catch (error) {
@@ -68,8 +68,7 @@ const Appointments = () => {
       setMessage(
         typeof errMsg === "string"
           ? errMsg
-          : errMsg?.title || errMsg?.message || "שגיאה בקביעת התור"
-      );
+          : errMsg?.title || errMsg?.message || "שגיאה בעדכון התור");
     } finally {
       setLoading(false);
     }
@@ -134,7 +133,7 @@ const Appointments = () => {
               style={loading ? styles.btnDisabled : styles.btn}
               disabled={loading}
             >
-              {loading ? "שומר..." : "קביעת תור"}
+              {loading ? "שומר..." : "עידכון תור"}
             </button>
           </form>
 
@@ -287,4 +286,4 @@ const styles = {
   },
 };
 
-export default Appointments;
+export default Updateappointment;

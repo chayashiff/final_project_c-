@@ -35,27 +35,27 @@ namespace Final_Project.Dal.Servises
                 return true;
             }
         }
-
+        
         public bool UpdateAppointment(int userId, DateTime oldAppointmentDate,
-                                      DateTime newAppointmentDate, int? newServiceId)
+                                      DateTime newAppointmentDate, int? newServiceId)//עדכון תור קיים למשתמש
         {
-            using (var context = new dbmanager())
+            using (var context = new dbmanager())//פתיחת קונטקסט חדש
             {
-                var appointment = context.Appointments
+                var appointment = context.Appointments//שליפת התור הקיים לפי מזהה המשתמש ותאריך התור הישן
                     .FirstOrDefault(a => a.UserId == userId
                         && a.AppointmentDate.Date == oldAppointmentDate.Date);
 
                 if (appointment == null)
                     return false;
 
-                var duration = appointment.EndTime - appointment.AppointmentDate;
-                appointment.AppointmentDate = newAppointmentDate;
-                appointment.EndTime = newAppointmentDate + duration;
+                var duration = appointment.EndTime - appointment.AppointmentDate;//חישוב משך התור הקיים
+                appointment.AppointmentDate = newAppointmentDate;//עדכון תאריך התור
+                appointment.EndTime = newAppointmentDate + duration;//עדכון זמן סיום התור
 
-                if (newServiceId.HasValue)
-                    appointment.ServiceId = newServiceId.Value;
+                if (newServiceId.HasValue)//אם יש שירות חדש לעדכון
+                    appointment.ServiceId = newServiceId.Value;//עדכון מזהה השירות
 
-                context.SaveChanges();
+                context.SaveChanges();//שמירת השינויים במסד הנתונים
                 return true;
             }
         }
