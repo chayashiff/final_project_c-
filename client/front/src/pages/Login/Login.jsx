@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import api from "../../api/authApi";
 import logo from "../../assets/logo.jpg";
@@ -17,6 +18,7 @@ const Login = () => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+  const { login } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,8 +34,8 @@ const Login = () => {
           const loginResponse = await api.post(
             `/Login?email=${formData.email}&password=${formData.password}`
           );
-          localStorage.setItem("token", loginResponse.data.token);
-          navigate("/home");
+          login(loginResponse.data.token);
+navigate("/home");
         } catch {
           setIsError(true);
           setMessage("אימייל או סיסמה שגויים!");

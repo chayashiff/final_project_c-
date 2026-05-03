@@ -1,10 +1,10 @@
-﻿using Final_Project.BL.Api;
+﻿using System;
+using System.Collections.Generic;
+using Final_Project.BL.Api;
 using Final_Project.BL.Models;
 using Final_Project.Dal.models;
 using Final_Project.Dal.Servises;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 
 namespace Final_Project.BL.Services
 {
@@ -18,31 +18,8 @@ namespace Final_Project.BL.Services
             return ((IHistoryUser)this).appointmentsHistoryBL(rawData);
         }
 
-        public List<HistoryAppointments> GetAllAppointments()
-        {
-            var rawData = _userServiceDal.appointmentsHistory(0);
-            // נחזיר הכל — ללא סינון לפי userId
-            using (var context = new Final_Project.Dal.models.dbmanager())
-            {
-                var appointments = context.Appointments
-                    .Include(a => a.Service)
-                    .Include(a => a.User)
-                    .OrderByDescending(a => a.AppointmentDate)
-                    .ToList();
-                return ((IHistoryUser)this).appointmentsHistoryBL(appointments);
-            }
-        }
-
-        public List<User> GetAllUsers()
-        {
-            using (var context = new Final_Project.Dal.models.dbmanager())
-            {
-                return context.Users.ToList();
-            }
-        }
-
         List<HistoryAppointments> IHistoryUser.appointmentsHistoryBL(
-    List<Final_Project.Dal.models.Appointment> appointments)
+            List<Appointment> appointments)
         {
             var historyAppointments = new List<HistoryAppointments>();
             if (appointments == null) return historyAppointments;
@@ -51,7 +28,6 @@ namespace Final_Project.BL.Services
             {
                 if (appointment == null) continue;
 
-                // ← הסרנו את הסינון! מחזירים הכל
                 var history = new HistoryAppointments
                 {
                     userId = appointment.UserId,
@@ -60,8 +36,8 @@ namespace Final_Project.BL.Services
                     ServiceName = appointment.Service?.ServiceName ?? string.Empty,
                     Price = appointment.Service?.Price ?? 0m,
                     passedTime = (DateTime.Today - appointment.AppointmentDate.Date).Days,
-                    AppointmentDate = appointment.AppointmentDate, // ← חדש!
-                    Status = appointment.Status // ← חדש!
+                    AppointmentDate = appointment.AppointmentDate,
+                    Status = appointment.Status
                 };
 
                 historyAppointments.Add(history);
@@ -89,6 +65,27 @@ namespace Final_Project.BL.Services
 
             return _userServiceDal.UpdateAppointment(userId, oldAppointmentDate,
                                                       newAppointmentDate, newServiceId);
+        }
+
+        public List<HistoryAppointments> GetAllAppointments()
+        {
+            using (var context = new dbmanager())
+            {
+                var appointments = context.Appointments
+                    .Include(a => a.Service)
+                    .Include(a => a.User)
+                    .OrderByDescending(a => a.AppointmentDate)
+                    .ToList();
+                return ((IHistoryUser)this).appointmentsHistoryBL(appointments);
+            }
+        }
+
+        public List<User> GetAllUsers()
+        {
+            using (var context = new dbmanager())
+            {
+                return context.Users.ToList();
+            }
         }
     }
 }

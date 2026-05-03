@@ -19,11 +19,12 @@ public partial class dbmanager : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    => optionsBuilder.UseSqlServer(
-        "Data Source=(LocalDB)\\MSSQLLocalDB;" +
-        "AttachDbFilename=C:\\RCC\\Final_project.mdf;" +
-        "Integrated Security=True;" +
-        "Connect Timeout=30;");
+      => optionsBuilder.UseSqlServer(
+          "Data Source=(LocalDB)\\MSSQLLocalDB;" +
+          "AttachDbFilename=C:\\RCC\\Final_project.mdf;" +
+          "Integrated Security=True;" +
+          "Connect Timeout=30;");
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<ActivityLog>(entity =>

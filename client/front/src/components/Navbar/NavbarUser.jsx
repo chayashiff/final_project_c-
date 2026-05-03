@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.jpg";
+import { useAuth } from "../../context/AuthContext";
 
 const NavbarUser = () => {
+  const { user } = useAuth();
+
   return (
     <nav style={styles.nav}>
       <Link to="/home">
@@ -9,9 +12,11 @@ const NavbarUser = () => {
       </Link>
       <div style={styles.links}>
         <Link to="/appointments" style={styles.link}>קביעת תור</Link>
-        <Link to="/history" style={styles.link}>היסטוריה</Link>
-        <Link to="/shop" style={styles.link}>חנות</Link>
+        <Link to="/history" style={styles.link}>תורים</Link>
         <Link to="/bot" style={styles.link}>בוט פאות</Link>
+        {user?.role === "Admin" && (
+          <Link to="/admin" style={styles.btnAdmin}>ניהול</Link>
+        )}
         <button style={styles.btnLogout} onClick={() => {
           localStorage.removeItem("token");
           window.location.href = "/";
@@ -52,6 +57,15 @@ const styles = {
     textDecoration: "none",
     fontSize: "15px",
     fontWeight: "500",
+  },
+  btnAdmin: {
+    padding: "8px 20px",
+    borderRadius: "20px",
+    backgroundColor: "#7eb8d4",
+    color: "white",
+    textDecoration: "none",
+    fontSize: "15px",
+    fontWeight: "bold",
   },
   btnLogout: {
     padding: "8px 20px",
