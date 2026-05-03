@@ -1,4 +1,4 @@
-.vs/  
-[Bb]in/  
-[Oo]bj/  
-node_modules/ 
+bin/
+obj/
+*.user
+.vs/
