@@ -9,7 +9,7 @@ import Appointments from "./pages/Appointments/Appointments";
 import Bot from "./pages/Bot/Bot";
 import Admin from "./pages/Admin/Admin";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
-import Updateappointment from "./pages/Appointments/Updateappointment";
+import UpdateAppointment from "./pages/Appointments/Updateappointment";
 
 const FloatingBot = () => {
   const navigate = useNavigate();
@@ -53,7 +53,7 @@ function App() {
           <Route path="/home" element={<UserHome />} />
           <Route path="/history" element={<History />} />
           <Route path="/appointments" element={<Appointments />} />
-          <Route path="/Updateappointment" element={<Updateappointment/>}/>
+          <Route path="/Updateappointment" element={<UpdateAppointment/>}/>
           <Route path="/bot" element={<Bot />} />
         </Routes>
       </BrowserRouter>

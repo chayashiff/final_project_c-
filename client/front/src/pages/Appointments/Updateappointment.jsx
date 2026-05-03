@@ -1,21 +1,28 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import NavbarUser from "../../components/Navbar/NavbarUser";
-import { getServices, bookAppointment, updateAppointment } from "../../api/appointmentsApi";
+import { getServices, Updateappointment } from "../../api/appointmentsApi";
 
-const Updateappointment = () => {
+const UpdateAppointment = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const appointment = location.state?.appointment; // ← התור הקיים מההיסטוריה
+
   const [services, setServices] = useState([]);
-  const [selectedService, setSelectedService] = useState("");
+  const [selectedService, setSelectedService] = useState(appointment?.serviceId || "");
   const [selectedDate, setSelectedDate] = useState(null);
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
+    if (!appointment) {
+      navigate("/history");
+      return;
+    }
     const fetchServices = async () => {
       try {
         const data = await getServices();
@@ -31,8 +38,8 @@ const Updateappointment = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!selectedService || !selectedDate) {
-      setMessage("יש למלא את כל השדות");
+    if (!selectedDate) {
+      setMessage("יש לבחור תאריך ושעה");
       setIsError(true);
       return;
     }
@@ -46,29 +53,24 @@ const Updateappointment = () => {
       }
       const decoded = jwtDecode(token);
 
-      console.log("decoded token:", decoded);
-      console.log("userId:", decoded.userId);
-      console.log("serviceId:", selectedService);
-      console.log("date:", selectedDate.toISOString());
-
-      await Updateappointment(
-        parseInt(decoded.userId),
-        parseInt(selectedService),
-        selectedDate.toISOString()
-      );
+      await Updateappointment({
+        userId: parseInt(decoded.userId),
+        oldAppointmentDate: appointment.appointmentDate, // ← התאריך הישן
+        newAppointmentDate: new Date(selectedDate.getTime() - selectedDate.getTimezoneOffset() * 60000).toISOString(),  // ← התאריך החדש
+        newServiceId: selectedService ? parseInt(selectedService) : null,
+      });
 
       setIsError(false);
       setMessage("התור עודכן בהצלחה! 🎉");
-      setSelectedService("");
-      setSelectedDate(null);
+      setTimeout(() => navigate("/history"), 1500);
     } catch (error) {
       setIsError(true);
       const errMsg = error.response?.data;
-      console.log("error response:", error.response);
       setMessage(
         typeof errMsg === "string"
           ? errMsg
-          : errMsg?.title || errMsg?.message || "שגיאה בעדכון התור");
+          : errMsg?.title || errMsg?.message || "שגיאה בעדכון התור"
+      );
     } finally {
       setLoading(false);
     }
@@ -87,15 +89,40 @@ const Updateappointment = () => {
   return (
     <div style={styles.page}>
       <NavbarUser />
-
       <div style={styles.content}>
         <div style={styles.card}>
-          <h1 style={styles.title}>קביעת תור</h1>
-          <p style={styles.subtitle}>בחרי שירות ותאריך מתאים</p>
+          <h1 style={styles.title}>עדכון תור</h1>
+
+          {/* פרטי התור הקיים */}
+          <div style={styles.existingAppointment}>
+            <p style={styles.existingTitle}>פרטי התור הנוכחי:</p>
+            <p style={styles.existingDetail}>
+              🔹 שירות: <strong>{appointment?.serviceName}</strong>
+            </p>
+            <p style={styles.existingDetail}>
+              🔹 תאריך:{" "}
+              <strong>
+                {new Date(appointment?.appointmentDate).toLocaleDateString("he-IL")}
+              </strong>
+            </p>
+            <p style={styles.existingDetail}>
+              🔹 שעה:{" "}
+              <strong>
+                {new Date(appointment?.appointmentDate).toLocaleTimeString("he-IL", {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
+              </strong>
+            </p>
+            <p style={styles.existingDetail}>
+              🔹 מחיר: <strong>₪{appointment?.price}</strong>
+            </p>
+          </div>
 
           <form onSubmit={handleSubmit} style={styles.form}>
+            {/* שירות */}
             <div style={styles.field}>
-              <label style={styles.label}>סוג שירות</label>
+              <label style={styles.label}>סוג שירות חדש</label>
               <select
                 value={selectedService}
                 onChange={(e) => setSelectedService(e.target.value)}
@@ -104,15 +131,15 @@ const Updateappointment = () => {
                 <option value="">— בחרי שירות —</option>
                 {services.map((service) => (
                   <option key={service.serviceId} value={service.serviceId}>
-                    {service.serviceName}  — ₪ {service.price}
-                    ({service.timetoservice} שעות)
+                    {service.serviceName} — ₪{service.price}
                   </option>
                 ))}
               </select>
             </div>
 
+            {/* תאריך ושעה */}
             <div style={styles.field}>
-              <label style={styles.label}>תאריך ושעה</label>
+              <label style={styles.label}>תאריך ושעה חדשים</label>
               <DatePicker
                 selected={selectedDate}
                 onChange={(date) => setSelectedDate(date)}
@@ -123,7 +150,7 @@ const Updateappointment = () => {
                 minDate={new Date()}
                 filterDate={filterDate}
                 filterTime={filterTime}
-                placeholderText="לחצי לבחירת תאריך"
+                placeholderText="לחצי לבחירת תאריך ושעה"
                 customInput={<input style={styles.dateInput} />}
               />
             </div>
@@ -133,21 +160,16 @@ const Updateappointment = () => {
               style={loading ? styles.btnDisabled : styles.btn}
               disabled={loading}
             >
-              {loading ? "שומר..." : "עידכון תור"}
+              {loading ? "שומר..." : "עדכן תור"}
             </button>
           </form>
 
           {message && (
-            <p style={isError ? styles.error : styles.success}>
-              {message}
-            </p>
+            <p style={isError ? styles.error : styles.success}>{message}</p>
           )}
 
-          <button
-            style={styles.btnHistory}
-            onClick={() => navigate("/history")}
-          >
-            צפייה בתורים
+          <button style={styles.btnBack} onClick={() => navigate("/history")}>
+            חזרה לתורים
           </button>
         </div>
       </div>
@@ -167,7 +189,7 @@ const styles = {
   },
   content: {
     width: "100%",
-    maxWidth: "480px",
+    maxWidth: "500px",
     padding: "16px",
   },
   card: {
@@ -183,12 +205,26 @@ const styles = {
     color: "#2D3F50",
     fontSize: "28px",
     fontWeight: "bold",
-    margin: "0 0 8px 0",
+    margin: "0 0 20px 0",
   },
-  subtitle: {
+  existingAppointment: {
+    width: "100%",
+    backgroundColor: "#FDF6F7",
+    borderRadius: "12px",
+    padding: "16px",
+    marginBottom: "24px",
+    border: "1.5px solid #E8B4B8",
+  },
+  existingTitle: {
     color: "#D4939A",
+    fontWeight: "bold",
+    fontSize: "15px",
+    marginBottom: "8px",
+  },
+  existingDetail: {
+    color: "#2D3F50",
     fontSize: "14px",
-    marginBottom: "28px",
+    margin: "4px 0",
   },
   form: {
     width: "100%",
@@ -253,7 +289,7 @@ const styles = {
     cursor: "not-allowed",
     marginTop: "8px",
   },
-  btnHistory: {
+  btnBack: {
     marginTop: "16px",
     backgroundColor: "transparent",
     border: "none",
@@ -286,4 +322,4 @@ const styles = {
   },
 };
 
-export default Updateappointment;
+export default UpdateAppointment;

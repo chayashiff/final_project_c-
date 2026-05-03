@@ -49,12 +49,12 @@ const Appointments = () => {
       console.log("decoded token:", decoded);
       console.log("userId:", decoded.userId);
       console.log("serviceId:", selectedService);
-      console.log("date:", selectedDate.toISOString());
+      console.log("date:", new Date(selectedDate.getTime() - selectedDate.getTimezoneOffset() * 60000).toISOString());
 
       await bookAppointment(
         parseInt(decoded.userId),
         parseInt(selectedService),
-        selectedDate.toISOString()
+        new Date(selectedDate.getTime() - selectedDate.getTimezoneOffset() * 60000).toISOString()
       );
 
       setIsError(false);
