@@ -1,4 +1,16 @@
+# .NET artifacts
 bin/
 obj/
+*.dll
+*.pdb
+*.exe
+*.cache
+*.json
 *.user
 .vs/
+
+# Frontend artifacts
+node_modules/
+dist/
+build/
+.env
