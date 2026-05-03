@@ -12,8 +12,7 @@ const NavbarUser = () => {
       </Link>
       <div style={styles.links}>
         <Link to="/appointments" style={styles.link}>קביעת תור</Link>
-        <Link to="/history" style={styles.link}>היסטוריה</Link>
-        <Link to="/shop" style={styles.link}>חנות</Link>
+        <Link to="/history" style={styles.link}>תורים</Link>
         <Link to="/bot" style={styles.link}>בוט פאות</Link>
         {user?.role === "Admin" && (
           <Link to="/admin" style={styles.btnAdmin}>ניהול</Link>

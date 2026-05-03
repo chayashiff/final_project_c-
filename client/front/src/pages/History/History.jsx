@@ -113,7 +113,7 @@ const History = () => {
                             <button
                               style={styles.btnUpdate}
                               onClick={() =>
-                                navigate("/appointments", {
+                                navigate("/Updateappointment", {
                                   state: { appointment: item },
                                 })
                               }

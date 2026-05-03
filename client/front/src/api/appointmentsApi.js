@@ -39,7 +39,7 @@ export const deleteAppointment = async (userId, appointmentDate) => {
 };
 
 // עדכון תור
-export const updateAppointment = async (data) => {
+export const Updateappointment = async (data) => {
   const response = await api.put(
     "/Appointment/update",
     JSON.stringify(data),
@@ -49,5 +49,7 @@ export const updateAppointment = async (data) => {
       },
     }
   );
+  console.log(response.data);
+  
   return response.data;
 };
