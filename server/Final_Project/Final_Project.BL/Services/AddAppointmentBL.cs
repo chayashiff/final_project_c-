@@ -12,6 +12,7 @@ namespace Final_Project.BL.Services
     public class AddAppointmentBL : IAddAppointmentBL
     {
         private readonly AddAppointmentService _appointmentService;
+        private readonly ActivityLogBL _activityLog = new ActivityLogBL();
 
         public AddAppointmentBL()
         {
@@ -46,6 +47,8 @@ namespace Final_Project.BL.Services
             };
 
             int newId = _appointmentService.AddAppointment(appointment);
+            if (newId != -1)
+                _activityLog.LogAction(userId, "BookAppointment", null);
             return newId != -1;
         }
     }

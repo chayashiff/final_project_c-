@@ -11,6 +11,7 @@ namespace Final_Project.BL.Services
     public class UserServiceBL : IHistoryUser
     {
         private readonly UserService _userServiceDal = new UserService();
+        private readonly ActivityLogBL _activityLog = new ActivityLogBL();
 
         public List<HistoryAppointments> GetUserHistory(int userId)
         {
@@ -51,7 +52,10 @@ namespace Final_Project.BL.Services
             if (appointmentDate.Date < DateTime.Today)
                 throw new Exception("לא ניתן למחוק תור שכבר עבר");
 
-            return _userServiceDal.DeleteAppointment(userId, appointmentDate);
+            bool result = _userServiceDal.DeleteAppointment(userId, appointmentDate);
+            if (result)
+                _activityLog.LogAction(userId, "DeleteAppointment", null);
+            return result;
         }
 
         public bool UpdateAppointment(int userId, DateTime oldAppointmentDate,
@@ -63,8 +67,11 @@ namespace Final_Project.BL.Services
             if (oldAppointmentDate.Date < DateTime.Today)
                 throw new Exception("לא ניתן לעדכן תור שכבר עבר");
 
-            return _userServiceDal.UpdateAppointment(userId, oldAppointmentDate,
-                                                      newAppointmentDate, newServiceId);
+            bool result = _userServiceDal.UpdateAppointment(userId, oldAppointmentDate,
+                                                  newAppointmentDate, newServiceId);
+            if (result)
+                _activityLog.LogAction(userId, "UpdateAppointment", null);
+            return result;
         }
 
         public List<HistoryAppointments> GetAllAppointments()
