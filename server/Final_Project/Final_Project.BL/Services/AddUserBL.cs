@@ -7,6 +7,7 @@ namespace Final_Project.BL.Services
     public class AddUserBL : IaddUserBL
     {
         private readonly AddUserService _addUserService;
+        private readonly ActivityLogBL _activityLog = new ActivityLogBL();
 
         public AddUserBL()
         {
@@ -32,6 +33,8 @@ namespace Final_Project.BL.Services
             };
 
             int newId = _addUserService.AddUser(newUser);
+            if (newId != -1)
+                _activityLog.LogAction(newId, "Register", null);
             return newId != -1;
         }
     }

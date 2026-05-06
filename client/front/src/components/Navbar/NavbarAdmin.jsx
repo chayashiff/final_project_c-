@@ -2,35 +2,27 @@ import { Link } from "react-router-dom";
 import logo from "../../assets/logo.jpg";
 import { useAuth } from "../../context/AuthContext";
 
-const NavbarUser = () => {
-const { user } = useAuth();
+const NavbarAdmin = () => {
+  const { logout } = useAuth();
 
-return (
-  <nav style={styles.nav}>
-    <Link to="/home">
-      <img src={logo} alt="logo" style={styles.logo} />
-    </Link>
-    <div style={styles.links}>
-      {user?.role !== "Admin" && (
-        <>
-          <Link to="/appointments" style={styles.link}>קביעת תור</Link>
-          <Link to="/history" style={styles.link}>תורים</Link>
-          <Link to="/shop" style={styles.link}>חנות</Link>
-          <Link to="/bot" style={styles.link}>בוט פאות</Link>
-        </>
-      )}
-      {user?.role === "Admin" && (
-        <Link to="/admin" style={styles.btnAdmin}>ניהול</Link>
-      )}
-      <button style={styles.btnLogout} onClick={() => {
-        localStorage.removeItem("token");
-        window.location.href = "/";
-      }}>
-        התנתקות
-      </button>
-    </div>
-  </nav>
-);
+  return (
+    <nav style={styles.nav}>
+      <Link to="/admin">
+        <img src={logo} alt="logo" style={styles.logo} />
+      </Link>
+      <div style={styles.links}>
+        <Link to="/admin" style={styles.btnAdmin}>
+          🛠️ ניהול
+        </Link>
+        <button style={styles.btnLogout} onClick={() => {
+          logout();
+          window.location.href = "/";
+        }}>
+          התנתקות
+        </button>
+      </div>
+    </nav>
+  );
 };
 
 const styles = {
@@ -57,14 +49,8 @@ const styles = {
     gap: "28px",
     alignItems: "center",
   },
-  link: {
-    color: "#2D3F50",
-    textDecoration: "none",
-    fontSize: "15px",
-    fontWeight: "500",
-  },
   btnAdmin: {
-    padding: "8px 20px",
+    padding: "8px 24px",
     borderRadius: "20px",
     backgroundColor: "#7eb8d4",
     color: "white",
@@ -84,4 +70,4 @@ const styles = {
   },
 };
 
-export default NavbarUser;
+export default NavbarAdmin;

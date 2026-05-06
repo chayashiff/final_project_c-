@@ -13,6 +13,8 @@ namespace Final_Project.Controllers
         private readonly ServiceManagerBL _serviceManager = new ServiceManagerBL();
         private readonly ProductManagerBL _productManager = new ProductManagerBL();
         private readonly StatisticsBL _statisticsBL = new StatisticsBL();
+        private readonly ActivityLogBL _activityLogBL = new ActivityLogBL();
+        private readonly TodayAppointmentsBL _todayAppointmentsBL = new TodayAppointmentsBL();
 
         // ── משתמשים ──
         [HttpGet("users")]
@@ -128,6 +130,75 @@ namespace Final_Project.Controllers
         public IActionResult GetStatistics()
         {
             try { return Ok(_statisticsBL.GetStatistics()); }
+            catch (Exception ex) { return StatusCode(500, ex.Message); }
+        }
+
+        // ── לוגים ──
+        [HttpGet("logs")]
+        public IActionResult GetAllLogs()
+        {
+            try { return Ok(_activityLogBL.GetAllLogs()); }
+            catch (Exception ex) { return StatusCode(500, ex.Message); }
+        }
+
+        // ── תורים להיום ──
+        [HttpGet("today")]
+        public IActionResult GetTodayAppointments()
+        {
+            try { return Ok(_todayAppointmentsBL.GetTodayAppointments()); }
+            catch (Exception ex) { return StatusCode(500, ex.Message); }
+        }
+
+        // ── הכנסות לפי חודש ──
+        [HttpGet("revenue-by-month")]
+        public IActionResult GetRevenueByMonth()
+        {
+            try
+            {
+                using (var context = new Final_Project.Dal.models.dbmanager())
+                {
+                    var data = context.Appointments
+                        .Join(context.Services,
+                            a => a.ServiceId,
+                            s => s.ServiceId,
+                            (a, s) => new { a.AppointmentDate, s.Price })
+                        .AsEnumerable()
+                        .GroupBy(x => new { x.AppointmentDate.Year, x.AppointmentDate.Month })
+                        .Select(g => new {
+                            month = $"{g.Key.Month}/{g.Key.Year}",
+                            revenue = g.Sum(x => x.Price)
+                        })
+                        .OrderBy(x => x.month)
+                        .ToList();
+                    return Ok(data);
+                }
+            }
+            catch (Exception ex) { return StatusCode(500, ex.Message); }
+        }
+
+        // ── תורים לפי שירות ──
+        [HttpGet("appointments-by-service")]
+        public IActionResult GetAppointmentsByService()
+        {
+            try
+            {
+                using (var context = new Final_Project.Dal.models.dbmanager())
+                {
+                    var data = context.Appointments
+                        .Join(context.Services,
+                            a => a.ServiceId,
+                            s => s.ServiceId,
+                            (a, s) => new { s.ServiceName })
+                        .AsEnumerable()
+                        .GroupBy(x => x.ServiceName)
+                        .Select(g => new {
+                            name = g.Key,
+                            value = g.Count()
+                        })
+                        .ToList();
+                    return Ok(data);
+                }
+            }
             catch (Exception ex) { return StatusCode(500, ex.Message); }
         }
     }

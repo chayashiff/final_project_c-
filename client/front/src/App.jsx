@@ -9,10 +9,16 @@ import Appointments from "./pages/Appointments/Appointments";
 import Bot from "./pages/Bot/Bot";
 import Admin from "./pages/Admin/Admin";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
-import UpdateAppointment from "./pages/Appointments/Updateappointment";
+import Updateappointment from "./pages/Appointments/Updateappointment";
+import { useAuth } from "./context/AuthContext";
+
 
 const FloatingBot = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
+  
+  if (user?.role === "Admin") return null;
+  
   return (
     <button
       onClick={() => navigate("/bot")}
@@ -53,7 +59,7 @@ function App() {
           <Route path="/home" element={<UserHome />} />
           <Route path="/history" element={<History />} />
           <Route path="/appointments" element={<Appointments />} />
-          <Route path="/Updateappointment" element={<UpdateAppointment/>}/>
+          <Route path="/Updateappointment" element={<Updateappointment/>}/>
           <Route path="/bot" element={<Bot />} />
         </Routes>
       </BrowserRouter>
