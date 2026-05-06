@@ -89,14 +89,14 @@ const styles = {
   },
   container: {
     width: "100%",
-    maxWidth: "480px",
+    maxWidth: "380px",
     backgroundColor: "white",
     borderRadius: "20px",
     overflow: "hidden",
     boxShadow: "0 8px 32px rgba(212, 147, 154, 0.3)",
     display: "flex",
     flexDirection: "column",
-    height: "600px",
+    height: "450px",
   },
   header: {
     backgroundColor: "#D4939A",
