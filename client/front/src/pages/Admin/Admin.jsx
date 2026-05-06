@@ -292,12 +292,13 @@ const Admin = () => {
                 <ResponsiveContainer width="100%" height={250}>
                   <PieChart>
                     <Pie data={getPieData()} dataKey="value" nameKey="name"
-                      cx="50%" cy="50%" outerRadius={90}
-                      label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}>
-                      {getPieData().map((_, index) => (
-                        <Cell key={index} fill={COLORS[index % COLORS.length]} />
-                      ))}
-                    </Pie>
+  cx="50%" cy="50%" outerRadius={90}
+  label={({ percent }) => `${(percent * 100).toFixed(0)}%`}
+>
+  {getPieData().map((_, index) => (
+    <Cell key={index} fill={COLORS[index % COLORS.length]} />
+  ))}
+</Pie>
                     <Tooltip />
                     <Legend />
                   </PieChart>

@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import NavbarUser from "../../components/Navbar/NavbarUser";
 import { getServices, bookAppointment, updateAppointment } from "../../api/appointmentsApi";
+
+
+
 
 const Updateappointment = () => {
   const [services, setServices] = useState([]);
@@ -14,6 +17,8 @@ const Updateappointment = () => {
   const [isError, setIsError] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+const appointment = location.state?.appointment;
 
   useEffect(() => {
     const fetchServices = async () => {
@@ -90,7 +95,16 @@ const Updateappointment = () => {
 
       <div style={styles.content}>
         <div style={styles.card}>
-          <h1 style={styles.title}>קביעת תור</h1>
+          <h1 style={styles.title}>עדכון תור</h1>
+          {appointment && (
+  <div style={styles.existingAppointment}>
+    <p style={styles.existingTitle}>פרטי התור הנוכחי:</p>
+    <p style={styles.existingDetail}>✂️ שירות: <strong>{appointment.serviceName}</strong></p>
+    <p style={styles.existingDetail}>📅 תאריך: <strong>{new Date(appointment.appointmentDate).toLocaleDateString("he-IL")}</strong></p>
+    <p style={styles.existingDetail}>🕐 שעה: <strong>{new Date(appointment.appointmentDate).toLocaleTimeString("he-IL", { hour: "2-digit", minute: "2-digit" })}</strong></p>
+    <p style={styles.existingDetail}>💰 מחיר: <strong>₪{appointment.price}</strong></p>
+  </div>
+)}
           <p style={styles.subtitle}>בחרי שירות ותאריך מתאים</p>
 
           <form onSubmit={handleSubmit} style={styles.form}>
@@ -156,6 +170,25 @@ const Updateappointment = () => {
 };
 
 const styles = {
+  existingAppointment: {
+  width: "100%",
+  backgroundColor: "#FDF6F7",
+  borderRadius: "12px",
+  padding: "16px",
+  marginBottom: "24px",
+  border: "1.5px solid #E8B4B8",
+},
+existingTitle: {
+  color: "#D4939A",
+  fontWeight: "bold",
+  fontSize: "15px",
+  marginBottom: "8px",
+},
+existingDetail: {
+  color: "#2D3F50",
+  fontSize: "14px",
+  margin: "4px 0",
+},
   page: {
     minHeight: "100vh",
     backgroundColor: "#E8B4B8",
