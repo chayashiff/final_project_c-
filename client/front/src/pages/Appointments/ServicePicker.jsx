@@ -3,34 +3,34 @@ import { useNavigate } from "react-router-dom";
 const services = [
   // סירוק ועיצוב
   {
-    category: "💇‍♀️ סירוק ועיצוב",
+    category: " סירוק ועיצוב",
     items: [
-      { serviceId: 1, serviceName: "סירוק", price: 120, timetoservice: 30, icon: "💆‍♀️" },
-      { serviceId: 2, serviceName: "עיצוב פאה", price: 400, timetoservice: 60, icon: "✨" },
-      { serviceId: 3, serviceName: "גזירה עד 2 ס\"מ", price: 150, timetoservice: 30, icon: "✂️" },
+      { serviceId: 1, serviceName: "סירוק", price: 120, timetoservice: 30},
+      { serviceId: 2, serviceName: "עיצוב פאה", price: 400, timetoservice: 60},
+      { serviceId: 3, serviceName: "גזירה עד 2 ס\"מ", price: 150, timetoservice: 30},
     ],
   },
   // צבע
   {
-    category: "🎨 צבע",
+    category: " צבע",
     items: [
-      { serviceId: 4, serviceName: "צבע פאה שלימה", price: 500, timetoservice: 90, icon: "🖌️" },
-      { serviceId: 5, serviceName: "צבע שורש", price: 370, timetoservice: 60, icon: "🌿" },
-      { serviceId: 6, serviceName: "גוונים", price: 570, timetoservice: 90, icon: "🌈" },
-      { serviceId: 7, serviceName: "בליאז'", price: 770, timetoservice: 120, icon: "⭐" },
-      { serviceId: 8, serviceName: "גוונים רק בסקין", price: 320, timetoservice: 60, icon: "💫" },
+      { serviceId: 4, serviceName: "צבע פאה שלימה", price: 500, timetoservice: 90 },
+      { serviceId: 5, serviceName: "צבע שורש", price: 370, timetoservice: 60 },
+      { serviceId: 6, serviceName: "גוונים", price: 570, timetoservice: 90 },
+      { serviceId: 7, serviceName: "בליאז'", price: 770, timetoservice: 120 },
+      { serviceId: 8, serviceName: "גוונים רק בסקין", price: 320, timetoservice: 60 },
     ],
   },
   // תיקונים
   {
-    category: "🔧 תיקונים",
+    category: " תיקונים",
     items: [
-      { serviceId: 9, serviceName: "טרס", price: 500, timetoservice: 60, icon: "🪡" },
-      { serviceId: 10, serviceName: "העברת רשת", price: 1200, timetoservice: 120, icon: "🕸️" },
-      { serviceId: 11, serviceName: "טופ לייס", price: 7500, timetoservice: 180, icon: "👑" },
-      { serviceId: 12, serviceName: "טשטושים בטופ", price: 1200, timetoservice: 90, icon: "🔮" },
-      { serviceId: 13, serviceName: "דילול טרס", price: 20, timetoservice: 20, icon: "✂️" },
-      { serviceId: 14, serviceName: "תפירת טרס", price: 30, timetoservice: 20, icon: "🧵" },
+      { serviceId: 9, serviceName: "טרס", price: 500, timetoservice: 60 },
+      { serviceId: 10, serviceName: "העברת רשת", price: 1200, timetoservice: 120 },
+      { serviceId: 11, serviceName: "טופ לייס", price: 7500, timetoservice: 180 },
+      { serviceId: 12, serviceName: "טשטושים בטופ", price: 1200, timetoservice: 90 },
+      { serviceId: 13, serviceName: "דילול טרס", price: 20, timetoservice: 20 },
+      { serviceId: 14, serviceName: "תפירת טרס", price: 30, timetoservice: 20 },
     ],
   },
 ];

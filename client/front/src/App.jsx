@@ -10,6 +10,7 @@ import Admin from "./pages/Admin/Admin";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import Updateappointment from "./pages/Appointments/Updateappointment";
 import ServicePicker from "./pages/Appointments/ServicePicker";
+
 const FloatingBot = () => {
   const navigate = useNavigate();
   return (
@@ -54,11 +55,11 @@ function App() {
           <Route path="/appointments" element={<Appointments />} />
           <Route path="/Updateappointment" element={<Updateappointment/>}/>
           <Route path="/bot" element={<Bot />} />
-          <Route path="/services" element={
-            <ProtectedRoute requiredRole="Customer">
+          <Route path="/services" element={<ServicePicker />} />
+            {/* <ProtectedRoute requiredRole="Customer">
               <ServicePicker />
             </ProtectedRoute>
-          } />
+          } /> */}
         </Routes>
       </BrowserRouter>
     </AuthProvider>
