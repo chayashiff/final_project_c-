@@ -1,16 +1,46 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import logo from "../../assets/logo.jpg";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const scrollTo = (id) => {
+    // אם כבר בעמוד הבית — גלול
+    if (location.pathname === "/") {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    } else {
+      // אם בעמוד אחר — עבור לבית ואז גלול
+      navigate("/");
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      }, 300);
+    }
+  };
+
   return (
     <nav style={styles.nav}>
       <Link to="/">
         <img src={logo} alt="logo" style={styles.logo} />
       </Link>
       <div style={styles.links}>
-        <Link to="/about" style={styles.link}>קצת עלינו</Link>
-        <Link to="/contact" style={styles.link}>יצירת קשר</Link>
-        <Link to="/login" style={styles.btnLogin}>התחברות</Link>
+        <button
+          style={styles.linkBtn}
+          onClick={() => scrollTo("about")}
+        >
+          קצת עלינו
+        </button>
+        <button
+          style={styles.linkBtn}
+          onClick={() => scrollTo("contact")}
+        >
+          יצירת קשר
+        </button>
+        <Link to="/login" style={styles.btnLogin}>
+          התחברות
+        </Link>
       </div>
     </nav>
   );
@@ -30,8 +60,7 @@ const styles = {
     direction: "rtl",
   },
   logo: {
-    width: "60px",
-    height: "60px",
+    width: "60px", height: "60px",
     borderRadius: "50%",
     objectFit: "cover",
     boxShadow: "0 2px 8px rgba(212, 147, 154, 0.4)",
@@ -41,11 +70,13 @@ const styles = {
     gap: "32px",
     alignItems: "center",
   },
-  link: {
+  linkBtn: {
+    backgroundColor: "transparent",
+    border: "none",
     color: "#2D3F50",
-    textDecoration: "none",
     fontSize: "16px",
     fontWeight: "500",
+    cursor: "pointer",
   },
   btnLogin: {
     padding: "8px 24px",
