@@ -1,55 +1,8 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-
-var builder = WebApplication.CreateBuilder(args);
+﻿var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
-{
-    c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
-    {
-        Name = "Authorization",
-        Type = Microsoft.OpenApi.Models.SecuritySchemeType.ApiKey,
-        Scheme = "Bearer",
-        BearerFormat = "JWT",
-        In = Microsoft.OpenApi.Models.ParameterLocation.Header,
-        Description = "הכניסי: Bearer {הטוקן שלך}"
-    });
-    c.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
-    {
-        {
-            new Microsoft.OpenApi.Models.OpenApiSecurityScheme
-            {
-                Reference = new Microsoft.OpenApi.Models.OpenApiReference
-                {
-                    Type = Microsoft.OpenApi.Models.ReferenceType.SecurityScheme,
-                    Id = "Bearer"
-                }
-            },
-            new string[] {}
-        }
-    });
-});
-
-// ← הוספת Authentication עם JWT
-var secretKey = builder.Configuration["Jwt:SecretKey"]!;
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.ASCII.GetBytes(secretKey)),
-            ValidateIssuer = false,
-            ValidateAudience = false
-        };
-    });
-
-// ← הוספת Authorization
-builder.Services.AddAuthorization();
+builder.Services.AddSwaggerGen();
 
 builder.Services.AddCors(options =>
 {
@@ -76,7 +29,22 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors("AllowReact");
 app.UseHttpsRedirection();
-app.UseAuthentication(); // ← חדש!
 app.UseAuthorization();
 app.MapControllers();
+
+// תזכורות אוטומטיות כל יום בשעה 18:00
+var reminderTimer = new System.Timers.Timer();
+reminderTimer.Interval = TimeSpan.FromMinutes(30).TotalMilliseconds;
+reminderTimer.AutoReset = true;
+reminderTimer.Elapsed += async (sender, e) =>
+{
+    if (DateTime.Now.Hour == 18 && DateTime.Now.Minute < 30)
+    {
+        var reminder = new Final_Project.BL.Services.EmailReminderBL();
+        int sent = await reminder.SendTomorrowReminders();
+        Console.WriteLine($"✅ נשלחו {sent} תזכורות בשעה {DateTime.Now}");
+    }
+};
+reminderTimer.Start();
+
 app.Run();
