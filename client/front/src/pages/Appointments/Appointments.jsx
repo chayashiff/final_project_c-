@@ -1,32 +1,26 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import NavbarUser from "../../components/Navbar/NavbarUser";
-import { getServices, bookAppointment } from "../../api/appointmentsApi";
+import { bookAppointment } from "../../api/appointmentsApi";
 
 const Appointments = () => {
-  const [services, setServices] = useState([]);
-  const [selectedService, setSelectedService] = useState("");
+  const [selectedService, setSelectedService] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
+  // קבלת שירות שנבחר מעמוד ServicePicker
   useEffect(() => {
-    const fetchServices = async () => {
-      try {
-        const data = await getServices();
-        setServices(data);
-      } catch (error) {
-        setMessage("שגיאה בטעינת השירותים");
-        setIsError(true);
-      }
-    };
-    fetchServices();
-  }, []);
+    if (location.state?.selectedService) {
+      setSelectedService(location.state.selectedService);
+    }
+  }, [location.state]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -59,16 +53,15 @@ const Appointments = () => {
 
       setIsError(false);
       setMessage("התור נקבע בהצלחה! 🎉");
-      setSelectedService("");
+      setSelectedService(null);
       setSelectedDate(null);
     } catch (error) {
       setIsError(true);
       const errMsg = error.response?.data;
-      console.log("error response:", error.response);
       setMessage(
         typeof errMsg === "string"
           ? errMsg
-          : errMsg?.title || errMsg?.message || "שגיאה בקביעת התור"
+          : errMsg?.title || "שגיאה בקביעת התור"
       );
     } finally {
       setLoading(false);
@@ -95,23 +88,44 @@ const Appointments = () => {
           <p style={styles.subtitle}>בחרי שירות ותאריך מתאים</p>
 
           <form onSubmit={handleSubmit} style={styles.form}>
+
+            {/* בחירת שירות */}
             <div style={styles.field}>
               <label style={styles.label}>סוג שירות</label>
-              <select
-                value={selectedService}
-                onChange={(e) => setSelectedService(e.target.value)}
-                style={styles.select}
+
+              {/* כפתור פתיחת בוחר שירות */}
+              <button
+                type="button"
+                style={styles.servicePickerBtn}
+                onClick={() => navigate("/services")}
               >
-                <option value="">— בחרי שירות —</option>
-                {services.map((service) => (
-                  <option key={service.serviceId} value={service.serviceId}>
-                    {service.serviceName}  — ₪ {service.price}
-                    ({service.timetoservice} שעות)
-                  </option>
-                ))}
-              </select>
+                {selectedService ? (
+                  <div style={styles.selectedService}>
+                    <span style={styles.selectedIcon}>
+                      {/* מחפשים את האייקון לפי שם */}
+                      ✅
+                    </span>
+                    <div style={styles.selectedInfo}>
+                      <span style={styles.selectedName}>
+                        {selectedService.serviceName}
+                      </span>
+                      <span style={styles.selectedPrice}>
+                        ₪{selectedService.price} • {selectedService.timetoservice} דקות
+                      </span>
+                    </div>
+                    <span style={styles.changeBtn}>שני</span>
+                  </div>
+                ) : (
+                  <div style={styles.noService}>
+                    <span>💇‍♀️</span>
+                    <span>לחצי לבחירת שירות</span>
+                    <span style={styles.arrow}>←</span>
+                  </div>
+                )}
+              </button>
             </div>
 
+            {/* בחירת תאריך */}
             <div style={styles.field}>
               <label style={styles.label}>תאריך ושעה</label>
               <DatePicker
@@ -129,12 +143,13 @@ const Appointments = () => {
               />
             </div>
 
+            {/* כפתור קביעה */}
             <button
               type="submit"
               style={loading ? styles.btnDisabled : styles.btn}
               disabled={loading}
             >
-              {loading ? "שומר..." : "קביעת תור"}
+              {loading ? "שומר..." : "קביעת תור 📅"}
             </button>
           </form>
 
@@ -148,7 +163,7 @@ const Appointments = () => {
             style={styles.btnHistory}
             onClick={() => navigate("/history")}
           >
-            צפייה בתורים
+            צפייה בהיסטוריית התורים
           </button>
         </div>
       </div>
@@ -172,10 +187,10 @@ const styles = {
     padding: "16px",
   },
   card: {
-    backgroundColor: "rgba(255, 255, 255, 0.95)",
+    backgroundColor: "rgba(255,255,255,0.95)",
     borderRadius: "20px",
     padding: "40px",
-    boxShadow: "0 8px 32px rgba(212, 147, 154, 0.3)",
+    boxShadow: "0 8px 32px rgba(212,147,154,0.3)",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -207,16 +222,54 @@ const styles = {
     fontSize: "15px",
     fontWeight: "bold",
   },
-  select: {
+  servicePickerBtn: {
     width: "100%",
-    padding: "12px 16px",
-    borderRadius: "10px",
+    padding: "14px 16px",
+    borderRadius: "12px",
     border: "1.5px solid #E8B4B8",
-    fontSize: "15px",
-    color: "#2D3F50",
     backgroundColor: "#FDF6F7",
-    outline: "none",
     cursor: "pointer",
+    textAlign: "right",
+  },
+  selectedService: {
+    display: "flex",
+    alignItems: "center",
+    gap: "12px",
+  },
+  selectedIcon: {
+    fontSize: "24px",
+  },
+  selectedInfo: {
+    flex: 1,
+    display: "flex",
+    flexDirection: "column",
+    gap: "2px",
+  },
+  selectedName: {
+    color: "#2D3F50",
+    fontSize: "15px",
+    fontWeight: "bold",
+  },
+  selectedPrice: {
+    color: "#888",
+    fontSize: "13px",
+  },
+  changeBtn: {
+    color: "#D4939A",
+    fontSize: "13px",
+    fontWeight: "bold",
+  },
+  noService: {
+    display: "flex",
+    alignItems: "center",
+    gap: "10px",
+    color: "#888",
+    fontSize: "15px",
+  },
+  arrow: {
+    marginRight: "auto",
+    color: "#D4939A",
+    fontWeight: "bold",
   },
   dateInput: {
     width: "100%",

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import Home from "./pages/Home/Home";
@@ -12,7 +11,7 @@ import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import Updateappointment from "./pages/Appointments/Updateappointment";
 import { useAuth } from "./context/AuthContext";
 
-
+import ServicePicker from "./pages/Appointments/ServicePicker";
 const FloatingBot = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -61,6 +60,11 @@ function App() {
           <Route path="/appointments" element={<Appointments />} />
           <Route path="/Updateappointment" element={<Updateappointment/>}/>
           <Route path="/bot" element={<Bot />} />
+          <Route path="/services" element={
+            <ProtectedRoute requiredRole="Customer">
+              <ServicePicker />
+            </ProtectedRoute>
+          } />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

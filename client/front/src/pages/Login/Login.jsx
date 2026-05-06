@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import api from "../../api/authApi";
 import logo from "../../assets/logo.jpg";
 
 const Login = () => {
   const navigate = useNavigate();
+  const [isRegister, setIsRegister] = useState(false);
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -18,31 +18,46 @@ const Login = () => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  const { login } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try
-    {
-      await api.post(
-        `/AddUser/register?fullName=${formData.fullName}&email=${formData.email}&password=${formData.password}&phoneNumber=${formData.phoneNumber}`
-      );
-      navigate("/home");
-    } catch (error) {
-      if (error.response?.status === 400) {
-        try {
-          const loginResponse = await api.post(
-            `/Login?email=${formData.email}&password=${formData.password}`
-          );
-          login(loginResponse.data.token);
-navigate("/home");
-        } catch {
-          setIsError(true);
-          setMessage("אימייל או סיסמה שגויים!");
-        }
-      } else {
+    setMessage("");
+    setIsError(false);
+
+    if (isRegister) {
+      // ===== מצב הרשמה =====
+      try {
+        await api.post(
+          `/AddUser/register?fullName=${formData.fullName}&email=${formData.email}&password=${formData.password}&phoneNumber=${formData.phoneNumber}`
+        );
+        // הרשמה הצליחה — מתחברים אוטומטית
+        const loginResponse = await api.post(
+          `/Login?email=${formData.email}&password=${formData.password}`
+        );
+        localStorage.setItem("token", loginResponse.data.token);
+        navigate("/home");
+      } catch (error) {
         setIsError(true);
-        setMessage("משהו השתבש, נסי שוב");
+        setMessage("שגיאה בהרשמה, נסי שוב");
+      }
+    } else {
+      // ===== מצב כניסה =====
+      try {
+        const loginResponse = await api.post(
+          `/Login?email=${formData.email}&password=${formData.password}`
+        );
+        localStorage.setItem("token", loginResponse.data.token);
+        navigate("/home");
+      } catch (error) {
+        if (error.response?.status === 401) {
+          // המשתמש לא קיים — עוברים למצב הרשמה
+          setIsRegister(true);
+          setIsError(false);
+          setMessage("נראה שאת חדשה! מלאי את הפרטים להרשמה 😊");
+        } else {
+          setIsError(true);
+          setMessage("משהו השתבש, נסי שוב");
+        }
       }
     }
   };
@@ -51,19 +66,47 @@ navigate("/home");
     <div style={styles.page}>
       <div style={styles.bgOverlay}></div>
       <img src={logo} alt="logo bg" style={styles.bgLogo} />
+
       <div style={styles.card}>
         <img src={logo} alt="logo" style={styles.logo} />
-        <h2 style={styles.title}>כניסה / הרשמה</h2>
+
+        {/* כותרת משתנה */}
+        <h2 style={styles.title}>
+          {isRegister ? "הרשמה" : "כניסה"}
+        </h2>
         <p style={styles.subtitle}>פאה בקו אישי</p>
+
+        {/* הודעה כשעוברים להרשמה */}
+        {message && !isError && (
+          <p style={styles.info}>{message}</p>
+        )}
+
         <form onSubmit={handleSubmit} style={styles.form}>
-          <input
-            type="text"
-            name="fullName"
-            placeholder="שם מלא"
-            value={formData.fullName}
-            onChange={handleChange}
-            style={styles.input}
-          />
+
+          {/* שדות הרשמה בלבד */}
+          {isRegister && (
+            <>
+              <input
+                type="text"
+                name="fullName"
+                placeholder="שם מלא"
+                value={formData.fullName}
+                onChange={handleChange}
+                style={styles.input}
+                required
+              />
+              <input
+                type="text"
+                name="phoneNumber"
+                placeholder="טלפון"
+                value={formData.phoneNumber}
+                onChange={handleChange}
+                style={styles.input}
+              />
+            </>
+          )}
+
+          {/* שדות משותפים */}
           <input
             type="email"
             name="email"
@@ -71,6 +114,7 @@ navigate("/home");
             value={formData.email}
             onChange={handleChange}
             style={styles.input}
+            required
           />
           <input
             type="password"
@@ -79,21 +123,31 @@ navigate("/home");
             value={formData.password}
             onChange={handleChange}
             style={styles.input}
+            required
           />
-          <input
-            type="text"
-            name="phoneNumber"
-            placeholder="טלפון"
-            value={formData.phoneNumber}
-            onChange={handleChange}
-            style={styles.input}
-          />
+
+          {/* כפתור משתנה */}
           <button type="submit" style={styles.button}>
-            כניסה / הרשמה
+            {isRegister ? "הירשמי 🎉" : "כניסה →"}
           </button>
         </form>
+
+        {/* הודעת שגיאה */}
         {isError && message && (
           <p style={styles.error}>{message}</p>
+        )}
+
+        {/* אפשרות לחזור לכניסה */}
+        {isRegister && (
+          <button
+            style={styles.switchBtn}
+            onClick={() => {
+              setIsRegister(false);
+              setMessage("");
+            }}
+          >
+            כבר רשומה? לחצי כאן לכניסה
+          </button>
         )}
       </div>
     </div>
@@ -154,6 +208,17 @@ const styles = {
     fontSize: "14px",
     marginBottom: "24px",
   },
+  info: {
+    color: "#2D3F50",
+    backgroundColor: "#F2C9CC",
+    padding: "10px 16px",
+    borderRadius: "8px",
+    marginBottom: "12px",
+    fontSize: "14px",
+    textAlign: "center",
+    width: "100%",
+    boxSizing: "border-box",
+  },
   form: {
     width: "100%",
     display: "flex",
@@ -194,6 +259,15 @@ const styles = {
     width: "100%",
     textAlign: "center",
     boxSizing: "border-box",
+  },
+  switchBtn: {
+    marginTop: "16px",
+    backgroundColor: "transparent",
+    border: "none",
+    color: "#D4939A",
+    fontSize: "14px",
+    cursor: "pointer",
+    textDecoration: "underline",
   },
 };
 
