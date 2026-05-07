@@ -21,6 +21,7 @@ const History = () => {
         const decoded = jwtDecode(token);
         const userId = decoded.userId;
         const data = await getUserHistory(userId);
+        console.log("History data:", data); // בדיקה
         setHistory(data);
       } catch (error) {
         setMessage("שגיאה בטעינת ההיסטוריה");
@@ -97,7 +98,12 @@ const History = () => {
                             minute: "2-digit",
                           })}
                       </td>
-                      <td style={styles.td}>₪{item.price}</td>
+                      <td style={styles.td}>
+                        ₪{item.price || "לא זמין"}
+                        {item.price === 500 && (
+                          <span style={styles.priceWarning}> (בדוק מחיר)</span>
+                        )}
+                      </td>
                       <td style={styles.td}>
                         <span
                           style={
@@ -255,6 +261,11 @@ const styles = {
     cursor: "pointer",
     fontSize: "13px",
     fontWeight: "bold",
+  },
+  priceWarning: {
+    color: "#e74c3c",
+    fontSize: "11px",
+    fontStyle: "italic",
   },
 };
 

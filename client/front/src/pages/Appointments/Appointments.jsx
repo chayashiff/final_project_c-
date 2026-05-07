@@ -62,16 +62,35 @@ const Appointments = () => {
       setLoading(false);
     }
   };
+// שעות קבלה לפי יום
+const getWorkingHours = (date) => {
+  if (!date) return null;
+  const day = date.getDay();
+  switch (day) {
+    case 0: return { start: 9, end: 13 };  // ראשון
+    case 1: return { start: 16, end: 20 };  // שני
+    case 2: return { start: 15, end: 21 }; // שלישי — אחה"צ בלבד
+    case 3: return { start: 9, end: 13 };  // רביעי
+    case 4: return { start: 9, end: 14 };  // חמישי — בוקר בלבד
+    case 5: return { start: 9, end: 12 };  // שישי
+    case 6: return null;                    // שבת — סגור
+    default: return null;
+  }
+};
 
-  const filterDate = (date) => {
-    const day = date.getDay();
-    return day !== 6 && date >= new Date();
-  };
+const filterDate = (date) => {
+  const day = date.getDay();
+  // חסמי שבת ותאריכים שעברו
+  return day !== 6 && date >= new Date();
+};
 
-  const filterTime = (time) => {
-    const hours = time.getHours();
-    return hours >= 9 && hours < 18;
-  };
+const filterTime = (time) => {
+  if (!selectedDate) return false;
+  const hours = getWorkingHours(selectedDate);
+  if (!hours) return false;
+  const h = time.getHours();
+  return h >= hours.start && h < hours.end;
+};
 
   return (
     <div style={styles.page}>
