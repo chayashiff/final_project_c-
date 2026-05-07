@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useRole } from "../../hooks/useRole";
 import logo from "../../assets/logo.jpg";
-import { useAuth } from "../../context/AuthContext";
+import RatingModal from "../RatingModal/RatingModal";
 
 const NavbarUser = () => {
 const { user } = useAuth();
@@ -31,6 +33,71 @@ return (
     </div>
   </nav>
 );
+  const role = useRole();
+  const isAdmin = role === "Admin";
+  const [showRating, setShowRating] = useState(false);
+
+  const handleLogout = () => {
+    // אדמין — מתנתק ישירות
+    if (isAdmin) {
+      localStorage.removeItem("token");
+      window.location.href = "/";
+      return;
+    }
+    // לקוח — מציג חלון דירוג
+    setShowRating(true);
+  };
+
+  const handleRatingSubmit = (rating, comment) => {
+    console.log("דירוג:", rating, "הערה:", comment);
+    // כאן אפשר לשלוח לשרת בעתיד
+  };
+
+  const handleRatingClose = () => {
+    setShowRating(false);
+    localStorage.removeItem("token");
+    window.location.href = "/";
+  };
+
+  return (
+    <>
+      <nav style={styles.nav}>
+        <Link to="/home">
+          <img src={logo} alt="logo" style={styles.logo} />
+        </Link>
+
+        <div style={styles.links}>
+          {!isAdmin && (
+            <>
+              <Link to="/appointments" style={styles.link}>קביעת תור</Link>
+              <Link to="/history" style={styles.link}>היסטוריה</Link>
+              <Link to="/bot" style={styles.link}>בוט פאות</Link>
+            </>
+          )}
+
+          {isAdmin && (
+            <>
+              <Link to="/admin/schedule" style={styles.link}>📅 לוח יומי</Link>
+              <Link to="/admin/users" style={styles.link}>👥 לקוחות</Link>
+              <Link to="/admin/appointments" style={styles.link}>📋 כל התורים</Link>
+            </>
+          )}
+
+          <button style={styles.btnLogout} onClick={handleLogout}>
+            התנתקות
+          </button>
+        </div>
+      </nav>
+
+      {/* חלון דירוג */}
+      {showRating && (
+        <RatingModal
+          onClose={handleRatingClose}
+          onSubmit={handleRatingSubmit}
+        />
+      )}
+    </>
+  );
 };
 
 const styles = {
@@ -62,15 +129,6 @@ const styles = {
     textDecoration: "none",
     fontSize: "15px",
     fontWeight: "500",
-  },
-  btnAdmin: {
-    padding: "8px 20px",
-    borderRadius: "20px",
-    backgroundColor: "#7eb8d4",
-    color: "white",
-    textDecoration: "none",
-    fontSize: "15px",
-    fontWeight: "bold",
   },
   btnLogout: {
     padding: "8px 20px",
