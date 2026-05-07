@@ -12,6 +12,7 @@ namespace Final_Project.BL.Services
     {
         private readonly LoginService _loginService;
         private readonly string SecretKey;
+        private readonly ActivityLogBL _activityLog = new ActivityLogBL();
 
         public LoginBL()
         {
@@ -25,6 +26,8 @@ namespace Final_Project.BL.Services
             SecretKey = config["Jwt:SecretKey"]!;
         }
 
+       
+
         public string? Login(string email, string password)
         {
             try
@@ -37,6 +40,9 @@ namespace Final_Project.BL.Services
                 if (!isPasswordValid)
                     return null;
 
+                // ← תיעוד התחברות
+                _activityLog.LogAction(user.UserId, "Login", null);
+
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var key = Encoding.ASCII.GetBytes(SecretKey);
 
@@ -44,11 +50,11 @@ namespace Final_Project.BL.Services
                 {
                     Subject = new ClaimsIdentity(new[]
                     {
-                        new Claim("userId", user.UserId.ToString()),
-                        new Claim("email", user.Email),
-                        new Claim("role", user.UserRole ?? "Customer"),
-                        new Claim("fullName", user.FullName)
-                    }),
+                new Claim("userId", user.UserId.ToString()),
+                new Claim("email", user.Email),
+                new Claim("role", user.UserRole ?? "Customer"),
+                new Claim("fullName", user.FullName)
+            }),
                     Expires = DateTime.UtcNow.AddHours(24),
                     SigningCredentials = new SigningCredentials(
                         new SymmetricSecurityKey(key),

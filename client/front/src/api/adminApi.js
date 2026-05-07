@@ -81,3 +81,27 @@ export const deleteProduct = async (id) => {
   const response = await api.delete(`/Admin/products/${id}`, getAuthHeaders());
   return response.data;
 };
+
+// ── לוגים ──
+export const getAllLogs = async () => {
+  const response = await api.get("/Admin/logs", getAuthHeaders());
+  return response.data;
+};
+
+// ── תורים להיום ──
+export const getTodayAppointments = async () => {
+  const response = await api.get("/Admin/today", getAuthHeaders());
+  return response.data;
+};
+
+// ── הכנסות לפי חודש ──
+export const getRevenueByMonth = async () => {
+  const response = await api.get("/Admin/revenue-by-month", getAuthHeaders());
+  return response.data;
+};
+
+// ── תורים לפי שירות ──
+export const getAppointmentsByService = async () => {
+  const response = await api.get("/Admin/appointments-by-service", getAuthHeaders());
+  return response.data;
+};

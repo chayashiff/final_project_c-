@@ -9,9 +9,15 @@ import Bot from "./pages/Bot/Bot";
 import Admin from "./pages/Admin/Admin";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import Updateappointment from "./pages/Appointments/Updateappointment";
+import { useAuth } from "./context/AuthContext";
+
 import ServicePicker from "./pages/Appointments/ServicePicker";
 const FloatingBot = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
+  
+  if (user?.role === "Admin") return null;
+  
   return (
     <button
       onClick={() => navigate("/bot")}

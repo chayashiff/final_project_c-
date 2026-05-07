@@ -1,5 +1,8 @@
 import NavbarUser from "../../components/Navbar/NavbarUser";
 import logo from "../../assets/logo.jpg";
+import { useAuth } from "../../context/AuthContext";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const spinAnimation = `
   @keyframes spin {
@@ -9,6 +12,14 @@ const spinAnimation = `
 `;
 
 const UserHome = () => {
+  const { user } = useAuth();
+const navigate = useNavigate();
+
+useEffect(() => {
+  if (user?.role === "Admin") {
+    navigate("/admin");
+  }
+}, [user]);
   return (
     <div style={styles.page}>
       <style>{spinAnimation}</style>
